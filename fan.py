@@ -13,7 +13,7 @@ import homeassistant.helpers.config_validation as cv
 DOMAIN = "quietcool"
 
 REQUIREMENTS = [
-    'https://github.com/stabbylambda/quietcool-python/archive/wip.zip#quietcool==1.0.0']
+    'https://github.com/stabbylambda/quietcool-python/archive/master.zip#quietcool==1.0.0']
 
 _LOGGER = logging.getLogger(__name__)
 
