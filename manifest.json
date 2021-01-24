@@ -4,5 +4,5 @@
 	"documentation": "https://github.com/stabbylambda/homeassistant-quietcool",
 	"dependencies": [],
 	"codeowners": ["@stabbylambda"],
-	"requirements": ["https://github.com/stabbylambda/quietcool-python/archive/master.zip#quietcool==1.0.0"]
+	"requirements": ["https://github.com/stabbylambda/quietcool-python/archive/master.zip#quietcool==0.1"]
 }
