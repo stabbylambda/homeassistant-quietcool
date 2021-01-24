@@ -1,25 +1,26 @@
 import logging
 import voluptuous as vol
-from homeassistant.components.fan import (FanEntity,
-                                          SPEED_OFF,
-                                          SPEED_LOW,
-                                          SPEED_MEDIUM,
-                                          SPEED_HIGH,
-                                          SUPPORT_SET_SPEED,
-                                          PLATFORM_SCHEMA)
+from homeassistant.components.fan import (
+    FanEntity,
+    SPEED_OFF,
+    SPEED_LOW,
+    SPEED_MEDIUM,
+    SPEED_HIGH,
+    SUPPORT_SET_SPEED,
+    PLATFORM_SCHEMA,
+)
 from homeassistant.const import CONF_HOST
 import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)
 
 # Validation of the user's configuration
-PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    vol.Required(CONF_HOST): cv.string
-})
+PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({vol.Required(CONF_HOST): cv.string})
 
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     import quietcool
+
     host = config.get(CONF_HOST)
     _LOGGER.info(f"Calling get fans for hub: {host}")
     hub = await quietcool.Hub.create(host)
@@ -46,7 +47,7 @@ class QuietcoolFan(FanEntity):
         speeds = {
             1: [SPEED_OFF, SPEED_HIGH],
             2: [SPEED_OFF, SPEED_LOW, SPEED_HIGH],
-            3: [SPEED_OFF, SPEED_LOW, SPEED_MEDIUM, SPEED_HIGH]
+            3: [SPEED_OFF, SPEED_LOW, SPEED_MEDIUM, SPEED_HIGH],
         }
 
         return speeds[self._fan.configured_speeds]
@@ -54,12 +55,7 @@ class QuietcoolFan(FanEntity):
     @property
     def speed(self) -> str:
         """Return the current speed."""
-        speed_map = {
-            3: SPEED_HIGH,
-            2: SPEED_MEDIUM,
-            1: SPEED_LOW,
-            0: SPEED_OFF
-        }
+        speed_map = {3: SPEED_HIGH, 2: SPEED_MEDIUM, 1: SPEED_LOW, 0: SPEED_OFF}
         return speed_map[self._fan.current_speed]
 
     async def async_turn_on(self, speed: str = None, **kwargs) -> None:
@@ -75,12 +71,7 @@ class QuietcoolFan(FanEntity):
     async def async_set_speed(self, speed: str) -> None:
         """Set the speed of the fan."""
         _LOGGER.info(f"Setting {self.name} to {speed}")
-        speed_map = {
-            SPEED_HIGH: 3,
-            SPEED_MEDIUM: 2,
-            SPEED_LOW: 1,
-            SPEED_OFF: 0
-        }
+        speed_map = {SPEED_HIGH: 3, SPEED_MEDIUM: 2, SPEED_LOW: 1, SPEED_OFF: 0}
         await self._fan.set_current_speed(speed_map[speed])
 
     @property
