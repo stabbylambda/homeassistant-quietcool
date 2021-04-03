@@ -1,6 +1,7 @@
 {
 	"domain": "quietcool",
 	"name": "QuietCool Fan",
+        "version": "0.0.1",
 	"documentation": "https://github.com/stabbylambda/homeassistant-quietcool",
 	"dependencies": [],
 	"codeowners": ["@stabbylambda"],
